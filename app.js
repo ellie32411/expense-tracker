@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
+const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -24,6 +25,7 @@ db.once('open', () => {
 app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 app.get('/', (req, res) => {
   Record.find()
@@ -55,7 +57,7 @@ app.get('/records/:id/edit', (req, res) => {
     .catch((error) => console.log(error))
 })
 
-app.post('/records/:id/edit', (req, res) => {
+app.put('/records/:id', (req, res) => {
   const id = req.params.id
   const { name, amount } = req.body
   return Record.findById(id)
@@ -68,7 +70,7 @@ app.post('/records/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/records/:id/delete', (req, res) => {
+app.delete('/records/:id', (req, res) => {
   const id = req.params.id
   return Record.findById(id)
     .then((record) => record.remove())
