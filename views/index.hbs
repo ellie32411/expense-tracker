@@ -1,13 +1,22 @@
-<a href="/records/new">新增支出</a>
-<ul>
+<ul class="list-group">
   {{#each records}}
-  <li>
-    {{this.name}}
-    {{this.amount}}
-    <a href="/records/{{this._id}}/edit">修改</a>
-    <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-      <button type="submit">刪除</button>
-    </form>
+  <li class="list-group-item list-group-item-dark">
+    <div class="row">
+      <div class="col-auto me-auto">
+        <h4 style="display: inline; vertical-align: middle;">
+          {{ this.name }}
+        </h4>
+        <h4 style="display: inline; vertical-align: middle;">
+          {{ this.amount }}
+        </h4>
+      </div>
+      <div class="col-auto">
+        <a class="btn btn-success" href="./records/{{ this._id }}/edit">修改</a>
+        <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+          <button class="btn btn-danger" type="submit">刪除</button>
+        </form>
+      </div>
+    </div>
   </li>
   {{/each}}
 </ul>
