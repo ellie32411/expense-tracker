@@ -1,9 +1,10 @@
 const express = require('express')
 const session = require('express-session')
+const usePassport = require('./config/passport')
 const exphbs = require('express-handlebars')
-const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
-const Record = require('./models/record')
+const methodOverride = require('method-override')
+
 const routes = require('./routes')
 require('./config/mongoose')
 const app = express()
@@ -19,7 +20,7 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
-
+usePassport(app)
 app.use(routes)
 
 // 設定 port 3000
