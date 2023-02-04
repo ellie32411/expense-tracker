@@ -1,24 +1,26 @@
 <a href="/records/new" class="btn btn-primary mb-3">新增支出</a>
-
-<table class="table table-striped">
-  <thead>
-    總金額-25250
-  </thead>
-  <tbody>
-  {{#each records}}
-    <tr>
-      <td class="align-middle" style="color: #80DFFA;"><i class="fa-solid fa-house"></i></th>
-      <td class="align-middle">{{ this.name }}</td>
-      <td class="align-middle">{{ this.amount }}</td>
-      <td class="align-middle">
-        <div class="col-auto">
-          <a class="btn btn-success" href="./records/{{ this._id }}/edit">修改</a>
-          <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-            <button class="btn btn-danger" type="submit">刪除</button>
-          </form>
-        </div>
-      </td>
-    </tr>
-  {{/each}}
-  </tbody>
-</table>
+<div>
+  <table class="table table-striped">
+    <thead>
+      總金額20000
+    </thead>
+    <tbody>
+    {{#each records}}
+      <tr>
+        <td class="align-middle" style="color: #80DFFA;"><i class="fa-solid fa-house"></i></th>
+        <td class="align-middle">{{ this.name }}</td>
+        <td class="align-middle">{{ this.amount }}</td>
+        <td class="align-middle">{{ this.date }}</td>
+        <td class="align-middle">
+          <div class="col-auto">
+            <a class="btn btn-success" href="./records/{{ this._id }}/edit">修改</a>
+            <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+              <button class="btn btn-danger" type="submit">刪除</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>

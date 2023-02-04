@@ -1,7 +1,8 @@
 <form action="/records/{{ record._id }}?_method=PUT" method="POST" style="display: inline;">
   <div class="input-group">
-    <input class="form-control" type="text" placeholder="name" name="name" value="{{ record.name }}">
-    <input class="form-control" type="text" placeholder="amount" name="amount" value="{{ record.amount }}">
+    <input class="form-control" type="text" placeholder="修改花費品項..." name="name" value="{{ record.name }}">
+    <input class="form-control" type="number" placeholder="修改金額..." name="amount" value="{{ record.amount }}">
+    <input class="form-control" type="date" placeholder="修改日期..." name="date" value="{{ record.date }}">
     <button class="btn btn-success" type="submit">送出</button>
   </div>
 </form>

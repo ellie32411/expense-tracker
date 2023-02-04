@@ -8,9 +8,10 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res) => {
   const userId = req.user._id
-  const { name, amount } = req.body
+  const { name, amount, date } = req.body
   return Record.create({
     name,
+    date,
     amount,
     userId
   })
@@ -34,6 +35,7 @@ router.put('/:id', (req, res) => {
   return Record.findOne({ _id, userId })
     .then((record) => {
       record.name = name
+      record.date = date
       record.amount = amount
       return record.save()
     })
