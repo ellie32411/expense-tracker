@@ -22,15 +22,16 @@ db.once('open', () => {
     }))
     .then(user => {
       const userId = user._id
-      return Promise.all(Array.from(
-        { length: 10 },
-        (_, i) => Record.create({
-          name: `name-${i}`,
-          amount: Math.floor(Math.random() * 5000),
-          userId
-        })
-      ))
+      return Promise.all(Array.from({ length: 10 }, (_, i) => {
+        Record.create({ 
+          name: '晚餐', 
+          date: '2022-06-10', 
+          amount: (i + 1) * 10, 
+          categoryIcon: 'fa-solid fa-utensils', 
+          categoryName: '餐飲食品', 
+          userId })}))
     })
+
     .then(() => {
       console.log('done')
       process.exit()

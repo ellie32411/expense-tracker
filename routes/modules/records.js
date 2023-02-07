@@ -1,22 +1,35 @@
 const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record')
-
-router.get('/new', (req, res) => {
-  return res.render('new')
-})
+const Category = require('../../models/category')
+const category = require('../../models/category')
 
 router.post('/', (req, res) => {
   const userId = req.user._id
-  const { name, amount, date } = req.body
-  return Record.create({
-    name,
-    date,
-    amount,
-    userId
-  })
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+  const { name, amount, date, category } = req.body
+  Category.findOne({ name: category })
+          .lean()
+          .then(category => {
+            Record.create({
+              name,
+              date,
+              categoryName: category.name,
+              categoryIcon: category.icon,
+              amount,
+              userId,
+            })
+          })
+          .then(() => res.redirect('/'))
+          .catch(error => console.log(error))
+})
+
+router.get('/new', (req, res) => {
+  Category.find()
+          .lean()
+          .then(categorys => {
+            return res.render('new', { categorys })
+          })
+          .catch(error => console.log(error))
 })
 
 router.get('/:id/edit', (req, res) => {
@@ -50,6 +63,21 @@ router.delete('/:id', (req, res) => {
     .then((record) => record.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
+})
+
+router.get('/category/:categoryName', (req, res) => {
+  const userId = req.user._id
+  const categoryName = req.params.categoryName
+  Record.find({ categoryName, userId })
+        .lean()
+        .then(records => {
+          let totalAmount = 0
+          records.forEach(record => {
+            totalAmount += record.amount
+          })
+          res.render('index', { records, totalAmount })
+        })
+        .catch(error => console.log(error))
 })
 
 module.exports = router

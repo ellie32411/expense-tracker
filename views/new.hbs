@@ -1,8 +1,31 @@
-<form action="/records" method="POST" style="display: inline;">
-  <div class="input-group">
-    <input class="form-control" type="text" placeholder="請輸入花費品項..." name="name">
-    <input class="form-control" type="number" placeholder="請輸入金額..." name="amount">
-    <input class="form-control" type="date" placeholder="請輸入日期..." name="date">
-    <button class="btn btn-success" type="submit">新增支出</button>
+<div class="container-fluid mt-5">
+  <div class="container mx-auto list-group-item-warning py-2 border border-dark border-2" style="width:400px;">
+      <small>* 必填欄位</small>
+      <h4 class="text-center">請輸入你的支出</h4>
+    <form action="/records" method="POST">
+      <div class="mb-3">
+        <label for="InputName" class="form-label">名稱 *</label>
+        <input type="text" class="form-control" id="InputName" placeholder="name" name="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="InputDate" class="form-label">日期 *</label>
+        <input type="date" class="form-control" id="InputDate" name="date" required>
+      </div>
+      <div class="mb-3">
+        <label for="InputCategory" class="form-label">類別 *</label>
+        <select class="form-select" aria-label="Default select example" name="category" id="InputCategory">
+          {{#each categorys}}
+          <option>{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="InputAmount" class="form-label">金額 *</label>
+        <input type="number" class="form-control" id="InputAmount" min="0" required name="amount">
+      </div>
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-outline-secondary mt-4 mb-4">新增支出</button>
+      </div>
+    </form>
   </div>
-</form>
+</div>

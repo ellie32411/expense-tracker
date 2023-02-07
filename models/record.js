@@ -8,7 +8,7 @@ const recordSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
   },
   amount: {
     type: Number,
@@ -22,6 +22,18 @@ const recordSchema = new Schema({
   },
   categoryId: {
     type: Schema.Types.ObjectId,
+    ref: 'Category',
+    index: true,
+    required: true
+  },
+  categoryName: {
+    type: String,
+    ref: 'Category',
+    index: true,
+    required: true
+  },
+  categoryIcon: {
+    type: String,
     ref: 'Category',
     index: true,
     required: true
