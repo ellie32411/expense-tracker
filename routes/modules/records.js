@@ -4,7 +4,6 @@ const Record = require('../../models/record')
 const Category = require('../../models/category')
 
 router.post('/', (req, res) => {
-  const userId = req.user._id
   const { name, amount, date, category } = req.body
   Category.findOne({ name: category })
           .lean()
@@ -12,10 +11,11 @@ router.post('/', (req, res) => {
             Record.create({
               name,
               date,
+              categoryId: category._id,
               categoryName: category.name,
               categoryIcon: category.icon,
               amount,
-              userId,
+              userId: req.user._id,
             })
           })
           .then(() => res.redirect('/'))
@@ -33,7 +33,7 @@ router.get('/new', (req, res) => {
 
 router.get('/:id/edit', (req, res) => {
   const _id = req.params.id
-  Record.findById(id)
+  Record.findById(_id)
         .lean()
         .then(record => {
           Category.find()
@@ -46,18 +46,23 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-  const userId = req.user._id
   const _id = req.params.id
-  const { name, amount } = req.body
-  return Record.findOne({ _id, userId })
-    .then((record) => {
-      record.name = name
-      record.date = date
-      record.amount = amount
-      return record.save()
-    })
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+  const { name, amount, category, date} = req.body
+  Category.findOne({ name: category })
+          .lean()
+          .then(category => {
+            Record.findById(_id)
+                  .then(record => {
+                    record = Object.assign(record, req.body)
+                    record.categoryName = category.name
+                    record.categoryIcon = category.icon
+                    console.log(record)
+                    return record.save()
+                  })
+                  .then(() => res.redirect('/'))
+                  .catch(error => console.log(error))
+          })
+          .catch(error => console.log(error))
 })
 
 router.delete('/:id', (req, res) => {
