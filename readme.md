@@ -15,9 +15,9 @@
 1. 請確認已安裝 node.js 與 npm (使用版本請見文件最下方)
 2. 下載或 clone 此專案至本地資料夾
 
-   ```bash
-   git clone https://github.com/dinsky21/expense-tracker.git
-   ```
+```bash
+git clone https://github.com/dinsky21/expense-tracker.git
+```
 
 3. 在資料夾建立.env 檔案，並將以下 code 複製進入此檔案，並注意須將中文區域更改為個人的 mongoDB 資訊
 
@@ -34,15 +34,15 @@ npm run seed
 
 5. 若要啟網站，使用 terminal 於該資料夾內執行
 
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
 6. 若看見下方訊息則代表網站順利運行，打開瀏覽器輸入網址 localhost:3000 可開始使用
 
-   ```bash
-   The express is running on localhost:3000
-   ```
+```bash
+The express is running on localhost:3000
+```
 7. 可使用以下種子資料登入檢視各項功能是否正常
 		email: 'example@gmail.com', password: '12345678'
 
